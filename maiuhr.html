@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+
+<style>
+body {
+    background-color: #ffffff;
+    color: #eeeeee;
+}
+
+span {
+    font-family: Verdana, Sans-Serif, Georgia, "Times New Roman", serif;
+    font-weight: bold;
+    font-size: 2.3em;
+    text-transform: uppercase;
+    margin-left: 0px;
+    margin-top: 1em;
+    margin-bottom: 0em;
+}
+
+.dark-mode {
+    background-color: #000000;
+    color: #282828;
+}
+
+.uhr {
+    width: 490px;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    margin-left: -245px;
+}
+</style>
+
+<div class="uhr" align="justify">
+<span id="jetz" onclick="update()">jetz</span>
+<span id="glei">glei</span>
+<span id="war">grad wars genau</span>
+
+<span id="isch">isch</span><span id="s">s</span>
+<span id="no">no</span>
+
+<span id="fenf">fenf</span>
+<span id="bis">bis</span>
+
+<span id="noch">noch</span>
+<span id="15">virtl</span>
+<span id="30">halb</span>
+<span id="45">dreiviertel</span>
+<span>dschbäd</span>
+<span>gwäsa</span>
+<span id="3">dreie</span>
+<span id="fai2">fai</span>
+<span>gell</span>
+<span id="2">zwoie</span>
+<span id="1">oise</span>
+<span id="4">viere</span>
+<span id="scho">scho</span>
+<span id="5">fenfe</span>
+<span id="7">siebene</span>
+<span id="9">naine</span>
+<span id="8">achte</span>
+<span id="6">sexe</span>
+<span id="10">zehne</span>
+<span id="fai">fai</span>
+<span id="11">elfe</span>
+<span id="0">zwölfe</span>
+
+<span>gwies</span>
+<span id="sekonda">ond a baar sekonda</span>
+</div>
+
+<script>
+var state = "";
+var test = 0;
+
+function testcase(h, m, result){
+    r = update(h, m);
+    if ( r == result)
+        console.log(h,":",m," OK");
+    else {
+        console.log(h,":",m," FAIL ",r);
+        throw(h,":",m," FAIL ",r);
+    }
+}
+
+function check(){
+    testcase( 0,  0, "jetzisch0");
+    testcase(10,  0, "jetzisch10fai2scho");
+    testcase(11, 35, "jetzischsfenfnoch300");
+    testcase(12,  0, "jetzisch0fai");
+    testcase(12,  1, "war0");
+    testcase( 3,  4, "gleiischsfenfnoch3");
+    testcase( 3,  6, "warfenfnoch3");
+    testcase( 5, 29, "jetzischsno306");
+    testcase( 6, 37, "warfenfnoch307");
+    testcase( 6, 53, "gleiischsfenfbis7");
+    testcase( 7, 18, "gleiischsfenfnoch158");
+    testcase( 7,  5, "jetzischsfenfnoch7");
+    testcase( 8, 24, "gleiischsfenfbis309");
+    testcase( 9,  6, "warfenfnoch9");
+    testcase( 9,  7, "warfenfnoch9");
+    testcase( 9,  8, "gleiischsfenfbis1510");
+    testcase( 9, 32, "war3010sekonda");
+    testcase( 9, 43, "jetzischsno4510");
+    testcase( 9, 45, "jetzisch4510");
+
+    alert("all good");
+}
+
+function light(id){
+    try {
+        document.getElementById(id).style.color = "#cc66ff";
+        if (test)
+            state=state+id;
+    }
+    catch(err) {
+        console.log("Error in light() id =",id);
+    }
+}
+
+function update(h, m){
+    var p = document.getElementsByTagName("span");
+    for (var i=0; i < p.length; i++){
+        p[i].style.color="";
+    }
+
+    if (h == -1 && m == -1){
+        h = new Date().getHours()
+
+        var e = document.body;
+        if (h > 20 || h < 8)
+            e.classList.add("dark-mode");
+        else
+            e.classList.remove("dark-mode");
+
+        h = h % 12;
+        m = new Date().getMinutes();
+    }
+
+
+    d = Math.floor(m/15);
+    e = m % 15;
+    z = 0;
+
+    switch (e){
+        case 0: // 15 30 45
+            z = 1;
+            light("jetz");
+            light("isch");
+            break;
+        case 1:
+        case 2: // 17 32 47
+            z = 1;
+            light("war");
+            break;
+        case 3:
+        case 4: // 19 34 49
+            z = 1;
+            light("glei");
+            light("isch");
+            light("s");
+            light("fenf");
+            light("noch");
+            break
+        case 5: // 20 35 50
+            z = 1;
+            light("jetz");
+            light("isch");
+            light("s");
+            light("fenf");
+            light("noch");
+            break;
+        case 6:
+        case 7:
+            light("war");
+            light("fenf");
+            light("noch");
+            break;
+        case 8: // 23
+        case 9:
+            z = 1;
+            light("glei");
+            light("isch");
+            light("s");
+            light("fenf");
+            light("bis");
+            break
+        case 10: // 25 40 55
+            light("jetz");
+            light("isch");
+            light("s");
+            light("fenf");
+            light("bis");
+            break
+        case 11:
+        case 12:
+            light("war");
+            light("fenf");
+            light("bis");
+            break
+        case 13:
+        case 14:
+            z = 1;
+            light("jetz");
+            light("isch");
+            light("s");
+            light("no");
+
+            //light("glei");
+            //light("isch");
+            //light("s");
+            break
+    }
+
+    n = ((Math.floor((m-6)/15) + z) * 15) % 60;
+    if (n != 0)
+        light(n.toString());
+
+    if (m >= 8)
+        h = h + 1;
+
+    light((h%12).toString());
+
+
+    if (m == 32)
+        light("sekonda");
+
+    if (h == 12 && m == 0)
+        light("fai");
+
+    if (h == 10 && m == 0){
+        light("fai2");
+        light("scho");
+    }
+
+    a = state;
+    state = "";
+    return a;
+}
+
+if (!test){
+    window.onload = function() {
+        update(-1, -1);
+        var myVar = setInterval(function(){ update(-1, -1) }, 1000);
+    }
+} else
+    window.onload = function() { check(); }
+</script>
+
+</body>
+</html>
