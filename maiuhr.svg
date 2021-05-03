@@ -115,7 +115,7 @@ function check(){
     testcase( 9,  6, "wargenaufenfnoch9");
     testcase( 9,  7, "wargenaufenfnoch9");
     testcase( 9,  8, "gleiischsfenfbis1510");
-    testcase( 9, 32, "wargenau3010sekonda");
+    testcase( 9, 32, "wargenau3010sekondasekonda2");
     testcase( 9, 43, "jetzischsno4510");
     testcase( 9, 45, "jetzisch4510");
     testcase(10, 42, "wargenaufenfbis4511");
@@ -237,8 +237,10 @@ function update(h, m){
     light((h%12).toString());
 
 
-    if (m == 32)
+    if (m == 32){
         light("sekonda");
+        light("sekonda2");
+    }
 
     if (h == 12 && m == 0)
         light("fai");
