@@ -7,3 +7,9 @@ Enjoy
 I hoff 's gfallt dr.
 
 Released under CC Attribution-Share Alike 4.0 International
+
+https://jack28.github.io/maiuhr/index.html
+
+and
+
+https://jack28.github.io/maiuhr/maiuhr.svg
