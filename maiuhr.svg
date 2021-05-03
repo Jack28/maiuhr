@@ -1,6 +1,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+    width="560" height="400"
+    viewBox="-50 -50 460 350">
 
 <!--
 By Felix Bauer felix@ai4me.de
@@ -10,8 +12,12 @@ https://github.com/Jack28/maiuhr
 
 
 <style>
+svg {
+    background-color: black;
+}
+
 text {
-    fill: #eeeeee;
+    fill: #220044;
     text-anchor: start;
     font-family: Sans;
     font-weight: bold;
@@ -22,46 +28,56 @@ text {
 
 <text id="jetz" x="5" y="30">jetz</text>
 <text id="glei" x="80" y="30">glei</text>
-<text id="war"  x="155" y="30">grad wars</text>
+<text x="155" y="30">SZ</text>
+<text id="war" x="200" y="30">grad wars</text>
 
 <text id="genau" x="5" y="60">genau</text>
-<text id="isch" x="120" y="60">isch</text>
-<text id="s"    x="200" y="60">s</text>
-<text id="no"   x="220" y="60">no</text>
-<text id="fenf" x="270" y="60">fenf</text>
+<text id="isch" x="125" y="60">isch</text>
+<text id="s" x="210" y="60">s</text>
+<text id="no" x="235" y="60">no</text>
+<text x="290" y="60">x</text>
+<text id="fenf" x="320" y="60">fenf</text>
 
-<text id="bis"  x="5" y="90">bis</text>
-<text id="noch" x="60" y="90">noch</text>
-<text id="15"   x="160" y="90">virtl</text>
-<text id="30"   x="260" y="90">halb</text>
+<text id="bis" x="5" y="90">bis</text>
+<text id="noch" x="70" y="90">noch</text>
+<text id="15" x="175" y="90">virtl</text>
+<text x="280" y="90">m</text>
+<text id="30" x="315" y="90">halb</text>
 
-<text id="45"   x="5" y="120">dreiviertel</text>
-<text x="230" y="120">dschbäd</text>
+<text id="45" x="5" y="120">dreiviertel</text>
+<text x="225" y="120">i</text>
+<text x="240" y="120">dschbäd</text>
 
 <text x="5" y="150">gwäsa</text>
-<text id="3"    x="130" y="150">dreie</text>
-<text id="fai2" x="230" y="150">fai</text>
-<text x="280" y="150">gell</text>
+<text x="135" y="150">u</text>
+<text id="3" x="160" y="150">dreie</text>
+<text id="fai2" x="265" y="150">fai</text>
+<text x="320" y="150">gell</text>
 
 <text id="2" x="5" y="180">zwoie</text>
-<text id="1" x="120" y="180">oise</text>
-<text id="4" x="200" y="180">viere</text>
-<text id="scho" x="300" y="180">scho</text>
+<text id="1" x="125" y="180">oise</text>
+<text id="4" x="210" y="180">viere</text>
+<text id="scho" x="310" y="180">scho</text>
 
 <text id="5" x="5" y="210">fenfe</text>
-<text id="7" x="115" y="210">siebene</text>
-<text id="9" x="260" y="210">naine</text>
+<text id="7" x="125" y="210">siebene</text>
+<text x="275" y="210">z</text>
+<text id="9" x="300" y="210">naine</text>
 
 <text id="8" x="5" y="240">achte</text>
 <text id="6" x="120" y="240">sexe</text>
-<text id="10"  x="205" y="240">zehne</text>
-<text id="fai" x="320" y="240">fai</text>
+<text id="10" x="210" y="240">zehne</text>
+<text x="322" y="240">w</text>
+<text id="fai" x="354" y="240">fai</text>
 
-<text id="11"  x="5" y="270">elfe</text>
-<text id="0"   x="90" y="270">zwölfe</text>
-<text x="230" y="270">gwies</text>
+<text id="11" x="5" y="270">elfe</text>
+<text id="0" x="90" y="270">zwölfe</text>
+<text x="240" y="270">au</text>
+<text x="295" y="270">gwies</text>
 
-<text id="sekonda" x="5" y="300">ond a baar sekonda</text>
+<text id="sekonda" x="5" y="300">ond a baar</text>
+<text x="220" y="300">r</text>
+<text id="sekonda2" x="245" y="300">sekonda</text>
 
 
 
@@ -121,7 +137,7 @@ function light(id){
 function update(h, m){
     var p = document.getElementsByTagName("text");
     for (var i=0; i < p.length; i++){
-        p[i].style.fill="#dddddd";
+        p[i].style.fill="#220044";
     }
 
     if (h == -1 && m == -1){
