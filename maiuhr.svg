@@ -1,0 +1,250 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+<!--
+By Felix Bauer felix@ai4me.de
+Released under CC Attribution-Share Alike 4.0 International
+https://github.com/Jack28/maiuhr
+-->
+
+
+<style>
+text {
+    fill: #eeeeee;
+    text-anchor: start;
+    font-family: Sans;
+    font-weight: bold;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+</style>
+
+<text id="jetz" x="5" y="30">jetz</text>
+<text id="glei" x="80" y="30">glei</text>
+<text id="war"  x="155" y="30">grad wars</text>
+
+<text id="genau" x="5" y="60">genau</text>
+<text id="isch" x="120" y="60">isch</text>
+<text id="s"    x="200" y="60">s</text>
+<text id="no"   x="220" y="60">no</text>
+<text id="fenf" x="270" y="60">fenf</text>
+
+<text id="bis"  x="5" y="90">bis</text>
+<text id="noch" x="60" y="90">noch</text>
+<text id="15"   x="160" y="90">virtl</text>
+<text id="30"   x="260" y="90">halb</text>
+
+<text id="45"   x="5" y="120">dreiviertel</text>
+<text x="230" y="120">dschbäd</text>
+
+<text x="5" y="150">gwäsa</text>
+<text id="3"    x="130" y="150">dreie</text>
+<text id="fai2" x="230" y="150">fai</text>
+<text x="280" y="150">gell</text>
+
+<text id="2" x="5" y="180">zwoie</text>
+<text id="1" x="120" y="180">oise</text>
+<text id="4" x="200" y="180">viere</text>
+<text id="scho" x="300" y="180">scho</text>
+
+<text id="5" x="5" y="210">fenfe</text>
+<text id="7" x="115" y="210">siebene</text>
+<text id="9" x="260" y="210">naine</text>
+
+<text id="8" x="5" y="240">achte</text>
+<text id="6" x="120" y="240">sexe</text>
+<text id="10"  x="205" y="240">zehne</text>
+<text id="fai" x="320" y="240">fai</text>
+
+<text id="11"  x="5" y="270">elfe</text>
+<text id="0"   x="90" y="270">zwölfe</text>
+<text x="230" y="270">gwies</text>
+
+<text id="sekonda" x="5" y="300">ond a baar sekonda</text>
+
+
+
+<script type="text/javascript"><![CDATA[
+var state = "";
+var test = 0;
+
+function testcase(h, m, result){
+    r = update(h, m);
+    if ( r == result)
+        console.log(h,":",m," OK");
+    else {
+        console.log(h,":",m," FAIL ",r);
+        throw(h,":",m," FAIL ",r);
+    }
+}
+
+function check(){
+    testcase( 0,  0, "jetzisch0");
+    testcase(10,  0, "jetzisch10fai2scho");
+    testcase(11, 35, "jetzischsfenfnoch300");
+    testcase(11, 25, "jetzischsfenfbis300");
+    testcase(11, 26, "wargenaufenfbis300");
+    testcase(11, 27, "wargenaufenfbis300");
+    testcase(12,  0, "jetzisch0fai");
+    testcase(12,  1, "wargenau0");
+    testcase( 3,  4, "gleiischsfenfnoch3");
+    testcase( 3,  6, "wargenaufenfnoch3");
+    testcase( 5, 29, "jetzischsno306");
+    testcase( 6, 37, "wargenaufenfnoch307");
+    testcase( 6, 53, "gleiischsfenfbis7");
+    testcase( 7, 18, "gleiischsfenfnoch158");
+    testcase( 7,  5, "jetzischsfenfnoch7");
+    testcase( 8, 24, "gleiischsfenfbis309");
+    testcase( 9,  6, "wargenaufenfnoch9");
+    testcase( 9,  7, "wargenaufenfnoch9");
+    testcase( 9,  8, "gleiischsfenfbis1510");
+    testcase( 9, 32, "wargenau3010sekonda");
+    testcase( 9, 43, "jetzischsno4510");
+    testcase( 9, 45, "jetzisch4510");
+    testcase(10, 42, "wargenaufenfbis4511");
+
+    alert("all good");
+}
+
+function light(id){
+    try {
+        document.getElementById(id).style.fill = "#cc66ff";
+        if (test)
+            state=state+id;
+    }
+    catch(err) {
+        console.log("Error in light() id =",id);
+    }
+}
+
+function update(h, m){
+    var p = document.getElementsByTagName("text");
+    for (var i=0; i < p.length; i++){
+        p[i].style.fill="#dddddd";
+    }
+
+    if (h == -1 && m == -1){
+        h = new Date().getHours()
+
+        h = h % 12;
+        m = new Date().getMinutes();
+    }
+
+
+    d = Math.floor(m/15);
+    e = m % 15;
+    z = 0;
+
+    switch (e){
+        case 0: // 15 30 45
+            z = 1;
+            light("jetz");
+            light("isch");
+            break;
+        case 1:
+        case 2: // 17 32 47
+            z = 1;
+            light("war");
+            light("genau");
+            break;
+        case 3:
+        case 4: // 19 34 49
+            z = 1;
+            light("glei");
+            light("isch");
+            light("s");
+            light("fenf");
+            light("noch");
+            break
+        case 5: // 20 35 50
+            z = 1;
+            light("jetz");
+            light("isch");
+            light("s");
+            light("fenf");
+            light("noch");
+            break;
+        case 6:
+        case 7:
+            light("war");
+            light("genau");
+            light("fenf");
+            light("noch");
+            break;
+        case 8: // 23
+        case 9:
+            z = 1;
+            light("glei");
+            light("isch");
+            light("s");
+            light("fenf");
+            light("bis");
+            break
+        case 10: // 25 40 55
+            z = 1;
+            light("jetz");
+            light("isch");
+            light("s");
+            light("fenf");
+            light("bis");
+            break
+        case 11:
+        case 12:
+            z = 1;
+            light("war");
+            light("genau");
+            light("fenf");
+            light("bis");
+            break
+        case 13:
+        case 14:
+            z = 1;
+            light("jetz");
+            light("isch");
+            light("s");
+            light("no");
+
+            //light("glei");
+            //light("isch");
+            //light("s");
+            break
+    }
+
+    n = ((Math.floor((m-6)/15) + z) * 15) % 60;
+    if (n != 0)
+        light(n.toString());
+
+    if (m >= 8)
+        h = h + 1;
+
+    light((h%12).toString());
+
+
+    if (m == 32)
+        light("sekonda");
+
+    if (h == 12 && m == 0)
+        light("fai");
+
+    if (h == 10 && m == 0){
+        light("fai2");
+        light("scho");
+    }
+
+    a = state;
+    state = "";
+    return a;
+}
+
+
+if (!test){
+    window.onload = function() {
+        update(-1, -1);
+        var myVar = setInterval(function(){ update(-1, -1) }, 1000);
+    }
+} else
+    window.onload = function() { check(); }
+
+  ]]></script>
+</svg>
