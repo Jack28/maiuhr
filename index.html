@@ -5,6 +5,8 @@ Released under CC Attribution-Share Alike 4.0 International
 https://github.com/Jack28/maiuhr
 
 Best viewed in Firefox
+
+Version 0.1
 -->
 <html lang="de">
 <head>
@@ -81,31 +83,43 @@ span {
 </div>
 
 <script>
-var state = "";
-var test = 0;
+// time currently on display
+var lastUpdate = "";
 
+
+// set test to 1 to run automatic tests
+var test = 0;
+// state holds the light up words
+var state = "";
+
+// update the time with h:m and compare state to result
 function testcase(h, m, result){
     r = update(h, m);
-    if ( r == result)
+
+    if ( r == result){
         console.log(h,":",m," OK");
-    else {
+    } else {
         console.log(h,":",m," FAIL ",r);
         throw(h,":",m," FAIL ",r);
     }
 }
 
+// automatic tests to check everything's displayed fine
 function check(){
     testcase( 0,  0, "jetzisch0");
     testcase(10,  0, "jetzisch10fai2scho");
+    testcase(22,  0, "jetzisch10fai2scho");
     testcase(11, 35, "jetzischsfenfnoch300");
     testcase(11, 25, "jetzischsfenfbis300");
     testcase(11, 26, "warfenfbis300");
     testcase(11, 27, "warfenfbis300");
+    testcase(23, 27, "warfenfbis300");
     testcase(12,  0, "jetzisch0fai");
     testcase(12,  1, "war0");
     testcase( 3,  4, "gleiischsfenfnoch3");
     testcase( 3,  6, "warfenfnoch3");
     testcase( 5, 29, "jetzischsno306");
+    testcase(17, 29, "jetzischsno306");
     testcase( 6, 37, "warfenfnoch307");
     testcase( 6, 53, "gleiischsfenfbis7");
     testcase( 7, 18, "gleiischsfenfnoch158");
@@ -122,146 +136,153 @@ function check(){
     alert("all good");
 }
 
+// light up the id element
 function light(id){
     try {
         document.getElementById(id).style.color = "#cc66ff";
-        if (test)
-            state=state+id;
+        if (test){
+            state = state + id;
+        }
     }
-    catch(err) {
-        console.log("Error in light() id =",id);
+    catch(err){
+        console.log("Error in light() id =", id);
     }
 }
 
+// set new time
 function update(h, m){
+    // check if update needed to safe a few cycles
+    var i = h + ":" + m;
+    if (i == lastUpdate){
+        return state;
+    }
+    lastUpdate = h + ':' + m;
+
+    // switch to dark mode
+    var e = document.body;
+    if (h > 20 || h < 8){
+        e.classList.add("dark-mode");
+    } else {
+        e.classList.remove("dark-mode");
+    }
+
+    // switch off all LEDs
     var p = document.getElementsByTagName("span");
     for (var i=0; i < p.length; i++){
-        p[i].style.color="";
+        p[i].style.color = "";
     }
 
-    if (h == -1 && m == -1){
-        h = new Date().getHours()
-
-        var e = document.body;
-        if (h > 20 || h < 8)
-            e.classList.add("dark-mode");
-        else
-            e.classList.remove("dark-mode");
-
-        h = h % 12;
-        m = new Date().getMinutes();
-    }
-
-
-    d = Math.floor(m/15);
+    // select by minute which words to light
     e = m % 15;
-    z = 0;
-
     switch (e){
-        case 0: // 15 30 45
-            z = 1;
+        case 0: // 0 15 30 45
             light("jetz");
             light("isch");
             break;
-        case 1:
-        case 2: // 17 32 47
-            z = 1;
+        case 1: // 1 16 31 46
+        case 2: // 2 17 32 47
             light("war");
             break;
-        case 3:
-        case 4: // 19 34 49
-            z = 1;
+        case 3: // 3 18 33 48
+        case 4: // 4 19 34 49
             light("glei");
             light("isch");
             light("s");
             light("fenf");
             light("noch");
-            break
-        case 5: // 20 35 50
-            z = 1;
+            break;
+        case 5: // 5 20 35 50
             light("jetz");
             light("isch");
             light("s");
             light("fenf");
             light("noch");
             break;
-        case 6:
-        case 7:
+        case 6: // 6 21 36 51
+        case 7: // 7 22 37 52
             light("war");
             light("fenf");
             light("noch");
             break;
-        case 8: // 23
-        case 9:
-            z = 1;
+        case 8: // 8 23 38 53
+        case 9: // 9 24 39 54
             light("glei");
             light("isch");
             light("s");
             light("fenf");
             light("bis");
-            break
-        case 10: // 25 40 55
-            z = 1;
+            break;
+        case 10: // 10 25 40 55
             light("jetz");
             light("isch");
             light("s");
             light("fenf");
             light("bis");
-            break
-        case 11:
-        case 12:
-            z = 1;
+            break;
+        case 11: // 11 26 41 56
+        case 12: // 12 27 42 57
             light("war");
             light("fenf");
             light("bis");
-            break
-        case 13:
-        case 14:
-            z = 1;
+            break;
+        case 13: // 13 28 43 58
+        case 14: // 14 29 44 59
             light("jetz");
             light("isch");
             light("s");
             light("no");
-
-            //light("glei");
-            //light("isch");
-            //light("s");
-            break
+            break;
     }
 
-    n = ((Math.floor((m-6)/15) + z) * 15) % 60;
-    if (n != 0)
+    // Round to closest quarter
+    n = Math.floor((m+7.5)/15)*15%60;
+    if (n != 0){
         light(n.toString());
+    }
 
-    if (m >= 8)
+    // we then say the next hour
+    if (m >= 8){
         h = h + 1;
+    }
 
     light((h%12).toString());
 
-
-    if (m == 32)
+    // some gimmicks
+    if (m == 32){
         light("sekonda");
+    }
 
-    if (h == 12 && m == 0)
+    if (h == 12 && m == 0){
         light("fai");
+    }
 
-    if (h == 10 && m == 0){
+    if (h%12 == 10 && m == 0){
         light("fai2");
         light("scho");
     }
 
+    // return text representation of what's lit
     a = state;
     state = "";
     return a;
 }
 
-if (!test){
-    window.onload = function() {
-        update(-1, -1);
-        var myVar = setInterval(function(){ update(-1, -1) }, 1000);
+if (test){
+    // we are running the test suite
+    window.onload = function(){
+        check();
     }
-} else
-    window.onload = function() { check(); }
+} else {
+    window.onload = function(){
+        var d = new Date();
+        update(d.getHours(), d.getMinutes());
+
+        var myVar = setInterval(function(){
+            var d = new Date();
+            update(d.getHours(), d.getMinutes());
+        }, 1000);
+    }
+}
 </script>
 
 </body>
