@@ -152,8 +152,7 @@ function light(id){
 // set new time
 function update(h, m){
     // check if update needed to safe a few cycles
-    var i = h + ":" + m;
-    if (i == lastUpdate){
+    if (h + ":" + m == lastUpdate){
         return state;
     }
     lastUpdate = h + ':' + m;
