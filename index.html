@@ -88,15 +88,18 @@ span {
 // time currently on display
 var lastUpdate = "";
 
+// text color
+var color = "#cc66ff";
 
 // set test to 1 to run automatic tests
 var test = 0;
 // state holds the light up words
-var state = "";
+var state = new Set();
 
 // update the time with h:m and compare state to result
 function testcase(h, m, result){
     r = update(h, m);
+    r = Array.from(r).join('');
 
     if ( r == result){
         console.log(h,":",m," OK");
@@ -141,10 +144,9 @@ function check(){
 // light up the id element
 function light(id){
     try {
-        document.getElementById(id).style.color = "#cc66ff";
-        if (test){
-            state = state + id;
-        }
+        document.getElementById(id).style.color = color;
+
+        state.add(id);
     }
     catch(err){
         console.log("Error in light() id =", id);
@@ -158,6 +160,7 @@ function update(h, m){
         return state;
     }
     lastUpdate = h + ':' + m;
+    state = new Set();
 
     // switch to dark mode
     var darkops = [];
@@ -268,9 +271,7 @@ function update(h, m){
     }
 
     // return text representation of what's lit
-    a = state;
-    state = "";
-    return a;
+    return state;
 }
 
 if (test){
@@ -298,9 +299,13 @@ var currentBackgroundState = 0;
 
 function increaseColor(){
     currentBackgroundState = (currentBackgroundState + 1) % backgroundSteps;
-    document.body.style.backgroundColor = Rainbow(backgroundSteps,
-                                                  currentBackgroundState);
-    setTimeout(increaseColor, 100);
+    color = Rainbow(backgroundSteps, currentBackgroundState);
+    document.body.style.backgroundColor = color;
+    for (let ii of state){
+        light(ii);
+    }
+
+    setTimeout(increaseColor, 200);
 }
 
 if(window.location.hash && window.location.hash == "#color") {
@@ -340,6 +345,7 @@ function Rainbow(numOfSteps, step){
     color = "#" + parseInt(r * 255,10).toString(16).padStart(2, "0") +
                   parseInt(g * 255,10).toString(16).padStart(2, "0") +
                   parseInt(b * 255,10).toString(16).padStart(2, "0");
+
     return color;
 }
 </script>
