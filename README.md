@@ -10,6 +10,10 @@ Released under CC Attribution-Share Alike 4.0 International
 
 https://jack28.github.io/maiuhr/index.html
 
+and nicely colored with a rainbow animation
+
+https://jack28.github.io/maiuhr/index.html#color
+
 and
 
 https://jack28.github.io/maiuhr/maiuhr.svg
