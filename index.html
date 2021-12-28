@@ -31,7 +31,7 @@ span {
 }
 
 .dark-mode {
-    background-color: #000000;
+    background-color: #000000 !important;
     color: #181818;
 }
 
@@ -41,10 +41,12 @@ span {
     top: 100px;
     left: 50%;
     margin-left: -245px;
+    padding: 20px;
+    background-color: #ffffff;
 }
 </style>
 
-<div class="uhr" align="justify">
+<div id="uhr" class="uhr" align="justify">
 <span id="jetz" onclick="update()">jetz</span>
 <span id="glei">glei</span>
 <span id="war">grad wars genau</span>
@@ -158,13 +160,18 @@ function update(h, m){
     lastUpdate = h + ':' + m;
 
     // switch to dark mode
-    var e = document.body;
-    if (h > 20 || h < 8){
-        e.classList.add("dark-mode");
-    } else {
-        e.classList.remove("dark-mode");
+    var darkops = [];
+    darkops.push(document.getElementById("uhr"));
+    if(window.location.hash != "#color"){
+        darkops.push(document.body);
     }
-
+    for (ii = 0; ii < darkops.length; ii++){
+        if (h > 20 || h < 8){
+            darkops[ii].classList.add("dark-mode");
+        } else {
+            darkops[ii].classList.remove("dark-mode");
+        }
+    }
     // switch off all LEDs
     var p = document.getElementsByTagName("span");
     for (var i=0; i < p.length; i++){
@@ -281,6 +288,59 @@ if (test){
             update(d.getHours(), d.getMinutes());
         }, 1000);
     }
+}
+
+
+
+// background color change
+var backgroundSteps = 400;
+var currentBackgroundState = 0;
+
+function increaseColor(){
+    currentBackgroundState = (currentBackgroundState + 1) % backgroundSteps;
+    document.body.style.backgroundColor = Rainbow(backgroundSteps,
+                                                  currentBackgroundState);
+    setTimeout(increaseColor, 100);
+}
+
+if(window.location.hash && window.location.hash == "#color") {
+    increaseColor();
+}
+
+
+function Rainbow(numOfSteps, step){
+    // based on https://newbedev.com/how-do-i-get-a-rainbow-color-gradient-in-c
+    // thanks
+    var r = g = b = 0.0;
+    var h = step / numOfSteps;
+    var i = parseInt(h * 6, 10);
+    var f = h * 6.0 - i;
+    var q = 1 - f;
+
+    switch (i % 6){
+        case 0:
+            r = 1; g = f; b = 0;
+            break;
+        case 1:
+            r = q; g = 1; b = 0;
+            break;
+        case 2:
+            r = 0; g = 1; b = f;
+            break;
+        case 3:
+            r = 0; g = q; b = 1;
+            break;
+        case 4:
+            r = f; g = 0; b = 1;
+            break;
+        case 5:
+            r = 1; g = 0; b = q;
+            break;
+    }
+    color = "#" + parseInt(r * 255,10).toString(16).padStart(2, "0") +
+                  parseInt(g * 255,10).toString(16).padStart(2, "0") +
+                  parseInt(b * 255,10).toString(16).padStart(2, "0");
+    return color;
 }
 </script>
 
