@@ -49,7 +49,7 @@ span {
 <div id="uhr" class="uhr" align="justify">
 <span id="jetz">jetz</span>
 <span id="glei">glei</span>
-<span id="war">grad wars genau</span>
+<span id="war">grad ischs genau</span>
 
 <span id="isch">isch</span><span id="s">s</span>
 <span id="no">no</span>
@@ -80,7 +80,7 @@ span {
 <span id="11">elfe</span>
 <span id="0">zwölfe</span>
 
-<span>gwies</span>
+<span id="gwasa">gwäsa</span>
 <span id="sekonda">ond a baar sekonda</span>
 </div>
 
@@ -116,27 +116,27 @@ function check(){
     testcase(22,  0, "jetzisch10fai2scho");
     testcase(11, 35, "jetzischsfenfnoch300");
     testcase(11, 25, "jetzischsfenfbis300");
-    testcase(11, 26, "warfenfbis300");
-    testcase(11, 27, "warfenfbis300");
-    testcase(23, 27, "warfenfbis300");
+    testcase(11, 26, "wargwasafenfbis300");
+    testcase(11, 27, "wargwasafenfbis300");
+    testcase(23, 27, "wargwasafenfbis300");
     testcase(12,  0, "jetzisch0fai");
-    testcase(12,  1, "war0");
+    testcase(12,  1, "wargwasa0");
     testcase( 3,  4, "gleiischsfenfnoch3");
-    testcase( 3,  6, "warfenfnoch3");
+    testcase( 3,  6, "wargwasafenfnoch3");
     testcase( 5, 29, "jetzischsno306");
     testcase(17, 29, "jetzischsno306");
-    testcase( 6, 37, "warfenfnoch307");
+    testcase( 6, 37, "wargwasafenfnoch307");
     testcase( 6, 53, "gleiischsfenfbis7");
     testcase( 7, 18, "gleiischsfenfnoch158");
     testcase( 7,  5, "jetzischsfenfnoch7");
     testcase( 8, 24, "gleiischsfenfbis309");
-    testcase( 9,  6, "warfenfnoch9");
-    testcase( 9,  7, "warfenfnoch9");
+    testcase( 9,  6, "wargwasafenfnoch9");
+    testcase( 9,  7, "wargwasafenfnoch9");
     testcase( 9,  8, "gleiischsfenfbis1510");
-    testcase( 9, 32, "war3010sekonda");
+    testcase( 9, 32, "wargwasa3010sekonda");
     testcase( 9, 43, "jetzischsno4510");
     testcase( 9, 45, "jetzisch4510");
-    testcase(10, 42, "warfenfbis4511");
+    testcase(10, 42, "wargwasafenfbis4511");
 
     alert("all good");
 }
@@ -191,6 +191,7 @@ function update(h, m){
         case 1: // 1 16 31 46
         case 2: // 2 17 32 47
             light("war");
+            light("gwasa");
             break;
         case 3: // 3 18 33 48
         case 4: // 4 19 34 49
@@ -210,6 +211,7 @@ function update(h, m){
         case 6: // 6 21 36 51
         case 7: // 7 22 37 52
             light("war");
+            light("gwasa");
             light("fenf");
             light("noch");
             break;
@@ -231,6 +233,7 @@ function update(h, m){
         case 11: // 11 26 41 56
         case 12: // 12 27 42 57
             light("war");
+            light("gwasa");
             light("fenf");
             light("bis");
             break;
